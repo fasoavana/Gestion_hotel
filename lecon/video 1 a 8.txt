@@ -1,0 +1,47 @@
+
+package localhost.test;
+
+
+import java.sql.*;
+/**
+ *
+ * @author RAZAFIMAHATRATRA
+ */
+public class JDBCMain 
+{
+    
+     
+    public static void main(String[] args) throws SQLException 
+    {
+        // etape 1 : etablir  connection
+        String dbHost = "jdbc:mysql://localhost:3306/employees";
+        String dbUser = "root";
+        String dbPasswd ="";
+        Connection c = null;
+   
+        c = DriverManager.getConnection(dbHost,dbUser ,dbPasswd );
+        System.out.println("Connexion etablie");
+      
+        // etape 2 : creation de statement
+        Statement stmt = c.createStatement();
+     
+        // etape3  : execution de statement
+        String req = "SELECT e.last_name,e.first_name,d.dept_no,d.from_date,d.to_date "+
+                "FROM employees e RIGHT JOIN dept_manager d "+
+                "ON e.emp_no = d.emp_no";
+        
+        ResultSet rs = stmt.executeQuery(req);
+      
+        // etaê 4 : tratement de resultat
+        while(rs.next()){
+            //   System.out.println(" emp last."+rs.getString("emp_no"));
+            System.out.println(" Emp last name "+rs.getString(1)+
+                    " Emp first name "+rs.getString(2)+
+                    " Dept no "+rs.getString(3)+
+                    " From  "+rs.getDate(4)+
+                    " To  "+rs.getDate(5));
+                   
+        }
+    }
+         
+}

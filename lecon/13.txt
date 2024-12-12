@@ -1,0 +1,42 @@
+
+package localhost.test;
+import java.sql.Connection;
+
+
+import java.sql.*;
+/**
+ *
+ * @author RAZAFIMAHATRATRA
+ */
+public class JDBCMain 
+{
+    
+     
+    public static void main(String[] args) throws SQLException 
+    {
+        
+        String dbHost = "jdbc:mysql://localhost:3306/employees";
+        String dbUser = "root";
+        String dbPasswd ="";
+        Connection c = null;
+        Statement stmt = null;
+        String req = "DELETE FROM DEPARTMENTS  WHERE dept_no ='d010'";
+        int nbUpdated;
+        
+     
+        // etape 1 : etablir  connection
+        c = DriverManager.getConnection(dbHost,dbUser ,dbPasswd );
+        System.out.println("Connexion etablie");
+      
+        // etape 2 : creation de statement
+      stmt = c.createStatement();
+     
+        // etape3  : execution de statement
+        nbUpdated = stmt.executeUpdate(req);
+        System.out.println("Nombre de ligne effacée : "+nbUpdated); 
+       
+    
+       
+    }
+         
+}

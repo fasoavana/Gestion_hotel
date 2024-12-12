@@ -1,0 +1,63 @@
+
+package localhost.test;
+import java.sql.Connection;
+
+
+import java.sql.*;
+/**
+ *
+ * @author RAZAFIMAHATRATRA
+ */
+public class JDBCMain 
+{
+    
+     
+    public static void main(String[] args) throws SQLException 
+    {
+        
+        String dbHost = "jdbc:mysql://localhost:3306/employees";
+        String dbUser = "root";
+        String dbPasswd ="";
+        Connection c = null;
+        PreparedStatement pStmt = null;
+        
+        ResultSet rs = null;
+        ResultSetMetaData rsm = null ;
+       
+        //String req = "INSERT INTO DEPARTMENTS VALUES(?,?)";
+         String reqUpadate = "SELECT *FROM EMPLOYEES";
+         
+        
+     
+        // etape 1 : etablir  connection
+        c = DriverManager.getConnection(dbHost,dbUser ,dbPasswd );
+        System.out.println("Connexion etablie");
+      
+        // etape 2 : preparation de statement
+        pStmt = c.prepareStatement(reqUpadate);
+     
+        
+        // etape 3 : executer la requete
+          
+             rs = pStmt.executeQuery(reqUpadate);
+       
+        
+        // etape 4 : affichage des infos
+        rsm = rs.getMetaData();
+        System.out.println("Nom du table : "+rsm.getTableName(2));
+        System.out.println("Nombre du colonne : "+rsm.getColumnCount());
+        System.out.println("Label colonne : "+rsm.getColumnName(2));
+        System.out.println("Nom du colonne : "+rsm.getColumnLabel(2));
+        
+            System.out.println("Precision : "+rsm.getPrecision(2));
+              System.out.println("Dispay size : "+rsm.getColumnDisplaySize(2));
+                System.out.println("Nom du table : "+rsm.getTableName(2)); 
+      
+        
+        
+          
+        
+     
+    }
+         
+}
